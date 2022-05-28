@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+
+<body>
+    <style>
+        #square {
+            border: 1px solid;
+            background-color: black;
+            height: 510px;
+            width: 300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-rows: 20% 10% auto;
+            box-shadow: 0 0 5px black;
+            border-radius: 7px;
+
+        }
+
+        #result {
+            font-size: 20px;
+            background-color: black;
+            color: white;
+            text-align: right;
+            border: none;
+            outline: none
+        }
+
+        #result:focus {
+            border: none;
+
+        }
+
+        button {
+            background-color: rgba(61, 61, 61, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 2px white;
+
+        }
+
+        .top-buttons {
+            background-color: gray;
+            color: black;
+            box-shadow: 0 0 4px black;
+
+
+        }
+
+        .container2 button:last-child {
+            background-color: rgb(241, 130, 2);
+            box-shadow: 0 0 2px black;
+            font-size: 30px;
+            color: white;
+
+        }
+
+        #buttons-container {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 10px;
+
+
+        }
+
+        .container2 {
+            display: flex;
+            justify-content: space-around;
+
+        }
+    </style>
+    <div id="square">
+        <div style="background-color:black; cursor:text"></div>
+        <input id="result">
+        <div id="buttons-container">
+
+            <div class="container2">
+                <button id="reset" class="top-buttons"><strong>AC</strong></button>
+                <button id="" class="top-buttons"><strong>+/-</strong></button>
+                <button id="" class="top-buttons"><strong>%</strong></button>
+                <button id="" class=""><strong>&#247;</strong></button>
+            </div>
+            <div class="container2">
+                <button id="number-1" class=""><strong>7</strong></button>
+                <button id="" class=""><strong>8</strong></button>
+                <button id="" class=""><strong>9</strong></button>
+                <button id="" class=""><strong>x</strong></button>
+            </div>
+            <div class="container2">
+                <button id="" class=""><strong>4</strong></button>
+                <button id="" class=""><strong>5</strong></button>
+                <button id="" class=""><strong>6</strong></button>
+                <button id="" class=""><strong>-</strong></button>
+            </div>
+            <div class="container2">
+                <button id="" class=""><strong>1</strong></button>
+                <button id="" class=""><strong>2</strong></button>
+                <button id="" class=""><strong>3</strong></button>
+                <button id="" class=""><strong>+</strong></button>
+            </div>
+            <div class="container2">
+                <button style="flex-basis: 46%; border-radius: 30%;" class=""><strong>0</strong></button>
+                <button id="" class=""><strong>.</strong></button>
+                <button id="" class=""><strong>=</strong></button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        const input = document.getElementById("result")
+        function clear() {
+            input.value = ""
+
+        }
+
+
+        const allbuttons = document.querySelectorAll("button")
+        for (const button of allbuttons) {
+
+            if (button.textContent === "AC") {
+                button.onclick = clear
+
+            }
+             else if (button.textContent === "=") {
+                button.onclick = calculateResult
+            } else if (Number.isNaN(Number(button.textContent))) {
+                button.onclick = function () {
+                    const lastCharacter = input.value[input.value.length - 1]
+                    const isSpecialCharacter = Number.isNaN(Number(lastCharacter))
+                    if (!isSpecialCharacter) {
+                        input.value += this.textContent
+                    }
+
+                }
+
+
+
+
+            } else { button.onclick = addtext }
+
+
+
+
+        }
+        function addtext() {
+            input.value += this.textContent
+        }
+        function calculateResult() {
+            const operationString = input.value.replaceAll("X", "*").replaceAll("÷", "/")
+            if(operationString.includes("%")){
+                const numbers=operationString.split("%")
+                const number1=Number(numbers[0]) 
+                const number2=Number(numbers[1])
+                const result=number2/100*number1
+                input.value=result
+            }else {
+                const result=eval(operationString)
+            input.value=result
+            }
+            
+            
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
