@@ -161,7 +161,7 @@
             input.value += this.textContent
         }
         function calculateResult() {
-            const operationString = input.value.replaceAll("X", "*").replaceAll("÷", "/")
+            const operationString = input.value.replaceAll("x", "*").replaceAll("÷", "/")
             if(operationString.includes("%")){
                 const numbers=operationString.split("%")
                 const number1=Number(numbers[0]) 
